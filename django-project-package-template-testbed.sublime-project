@@ -1,0 +1,22 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns": [
+                "*.egg-info",
+                ".deploy",
+                ".venv",
+                "build",
+                "dist",
+                "staticfiles"
+            ],
+            "file_exclude_patterns": [
+                "*.sqlite3"
+            ]
+        },
+        {
+            "path": "../django-project-package-template"
+        }
+    ]
+}
