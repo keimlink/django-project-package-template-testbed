@@ -10,8 +10,8 @@ help:
 
 $(VENV):
 	python3 -m venv $(VENV)
-	$(VENV)/bin/python -m pip install --upgrade pip setuptools
-	$(VENV)/bin/python -m pip install --requirement requirements.txt --upgrade
+	$(VENV)/bin/python3 -m pip install --upgrade pip setuptools
+	$(VENV)/bin/python3 -m pip install --requirement requirements.txt --upgrade
 
 $(TESTBED):
 	mkdir $(TESTBED)
@@ -21,7 +21,7 @@ clean: ## Clean testbed
 	rm -fr $(VENV) $(TESTBED)
 
 $(TESTBED)/src: | $(VENV) $(TESTBED)
-	$(VENV)/bin/python -m django startproject --extension=cfg,gitignore,gitkeep,in,md,sublime-project \
+	$(VENV)/bin/python3 -m django startproject --extension=cfg,gitignore,gitkeep,in,md,sublime-project \
 		--template=$(TEMPLATE) $(shell ./bin/project.py) $(TESTBED)
 	./bin/testbed.sh setup
 

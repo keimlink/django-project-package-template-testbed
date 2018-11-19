@@ -63,7 +63,7 @@ EOF
 configure_django() {
     export DJANGO_ALLOWED_HOSTS="localhost, 127.0.0.1, [::1]"
     export DJANGO_DEBUG=False
-    DJANGO_PACKAGE=$(.venv/bin/python setup.py --name)
+    DJANGO_PACKAGE=$(.venv/bin/python3 setup.py --name)
     export DJANGO_PACKAGE
     export DJANGO_SETTINGS_MODULE=settings
     DJANGO_STATIC_ROOT=$(pwd)/staticfiles
@@ -76,8 +76,8 @@ cd "${DIR}/../testbed"
 case $1 in
     setup)
         activate_venv
-        .venv/bin/python -m pip install --upgrade pip setuptools wheel
-        .venv/bin/python -m pip install --editable .[dev]
+        .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+        .venv/bin/python3 -m pip install --editable .[dev]
         ;;
     migrate)
         activate_venv
