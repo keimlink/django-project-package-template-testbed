@@ -26,22 +26,6 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-activate_venv() {
-    if [ ! -d .venv ]; then
-        python3 -m venv .venv
-    fi
-    # shellcheck disable=SC1091
-    source .venv/bin/activate
-}
-
-activate_deploy() {
-    if [ ! -d .deploy ]; then
-        python3 -m venv .deploy
-    fi
-    # shellcheck disable=SC1091
-    source .deploy/bin/activate
-}
-
 # Add WhiteNoiseMiddleware to be used with Gunicorn
 write_settings() {
     cat <<EOF >.deploy/lib/python3.7/site-packages/settings.py
@@ -63,7 +47,7 @@ EOF
 configure_django() {
     export DJANGO_ALLOWED_HOSTS="localhost, 127.0.0.1, [::1]"
     export DJANGO_DEBUG=False
-    DJANGO_PACKAGE=$(.venv/bin/python3 setup.py --name)
+    DJANGO_PACKAGE=$(../.venv/bin/python3 setup.py --name)
     export DJANGO_PACKAGE
     export DJANGO_SETTINGS_MODULE=settings
     DJANGO_STATIC_ROOT=$(pwd)/staticfiles
@@ -75,21 +59,17 @@ cd "${DIR}/../testbed"
 
 case $1 in
     setup)
-        activate_venv
-        .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
-        .venv/bin/python3 -m pip install --editable .[dev]
+        ../.venv/bin/python3 -m pip install --upgrade pip setuptools wheel
+        ../.venv/bin/python3 -m pip install --editable .[dev]
         ;;
     migrate)
-        activate_venv
-        ./manage.py migrate
+        ../.venv/bin/python3 ./manage.py migrate
         ;;
     createsuperuser)
-        activate_venv
-        ./manage.py createsuperuser --email ada@example.com --username ada
+        ../.venv/bin/python3 ./manage.py createsuperuser --email ada@example.com --username ada
         ;;
     runserver)
-        activate_venv
-        ./manage.py runserver
+        ../.venv/bin/python3 ./manage.py runserver
         ;;
     git-init)
         git init
@@ -97,27 +77,24 @@ case $1 in
         git commit --message="Initial commit"
         ;;
     wheel)
-        activate_venv
-        python3 -m check_manifest
-        ./setup.py bdist_wheel
+        ../.venv/bin/python3 -m check_manifest
+        ../.venv/bin/python3 ./setup.py bdist_wheel
         ;;
     deploy)
         configure_django
-        activate_deploy
-        python3 -m pip install --upgrade pip setuptools wheel
-        python3 -m pip install --find-links=dist "${DJANGO_PACKAGE}" gunicorn whitenoise
+        python3 -m venv .deploy
+        .deploy/bin/python3 -m pip install --upgrade pip setuptools wheel
+        .deploy/bin/python3 -m pip install --find-links=dist "${DJANGO_PACKAGE}" gunicorn whitenoise
         write_settings
-        django-project migrate
-        django-project createsuperuser --email ada@example.com --username ada
+        .deploy/bin/django-project migrate
+        .deploy/bin/django-project createsuperuser --email ada@example.com --username ada
         ;;
     collectstatic)
         configure_django
-        activate_deploy
-        django-project collectstatic --no-input
+        .deploy/bin/django-project collectstatic --no-input
         ;;
     server)
         configure_django
-        activate_deploy
-        gunicorn --access-logfile - "${DJANGO_PACKAGE}.conf.wsgi"
+        .deploy/bin/gunicorn --access-logfile - "${DJANGO_PACKAGE}.conf.wsgi"
         ;;
 esac
