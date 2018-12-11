@@ -95,6 +95,6 @@ case $1 in
         ;;
     server)
         configure_django
-        .deploy/bin/gunicorn --access-logfile - "${DJANGO_PACKAGE}.conf.wsgi"
+        .deploy/bin/gunicorn --access-logfile - "${DJANGO_PACKAGE}.wsgi"
         ;;
 esac
