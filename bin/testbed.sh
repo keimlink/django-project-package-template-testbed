@@ -63,13 +63,13 @@ case $1 in
         ../.venv/bin/python3 -m pip install --editable .[dev]
         ;;
     migrate)
-        ../.venv/bin/python3 ./manage.py migrate
+        ../.venv/bin/python3 manage.py migrate
         ;;
     createsuperuser)
-        ../.venv/bin/python3 ./manage.py createsuperuser --email ada@example.com --username ada
+        ../.venv/bin/python3 manage.py createsuperuser --email ada@example.com --username ada
         ;;
     runserver)
-        ../.venv/bin/python3 ./manage.py runserver
+        ../.venv/bin/python3 manage.py runserver
         ;;
     git-init)
         git init
@@ -78,7 +78,7 @@ case $1 in
         ;;
     wheel)
         ../.venv/bin/python3 -m check_manifest
-        ../.venv/bin/python3 ./setup.py bdist_wheel
+        ../.venv/bin/python3 setup.py bdist_wheel
         ;;
     deploy)
         configure_django
