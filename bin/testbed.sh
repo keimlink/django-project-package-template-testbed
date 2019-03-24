@@ -60,7 +60,7 @@ cd "${DIR}/../testbed"
 case $1 in
     setup)
         ../.venv/bin/python3 -m pip install --upgrade pip setuptools wheel
-        ../.venv/bin/python3 -m pip install --editable .[dev]
+        ../.venv/bin/python3 -m pip install --editable ".[dev]"
         ;;
     migrate)
         ../.venv/bin/python3 manage.py migrate
