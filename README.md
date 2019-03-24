@@ -69,4 +69,4 @@ make clean
 
 Distributed under the 3-Clause BSD License.
 
-Copyright (c) 2018, Markus Zapke-Gründemann
+Copyright 2018-2019 Markus Zapke-Gründemann
