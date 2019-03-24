@@ -67,6 +67,6 @@ make clean
 
 ## License
 
-Distributed under the 3-Clause BSD License.
+Distributed under the MIT License.
 
 Copyright 2018-2019 Markus Zapke-Gründemann
