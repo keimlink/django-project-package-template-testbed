@@ -47,9 +47,9 @@ make server
 It will create an initial Git commit and check the `MANIFEST.in` file for completeness. Then it
 will build the wheel of the project.
 
-After that the production-like environment is created, which includes installing the wheel and
-it's dependencies. Then database migrations are run, a new superuser is created and the static
-files are collected. Finally the Gunicorn WSGI server is started.
+After that the production-like environment is created, which includes installing the wheel and its
+dependencies. Then database migrations are run, a new superuser is created and the static files are
+collected. Finally the Gunicorn WSGI server is started.
 
 If you only want to build the wheel you can do it by running just this command:
 
