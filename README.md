@@ -17,7 +17,7 @@ The following prerequisites are required to create and use the testbed.
 
 ### Development Environment
 
-If you want to test the project template in a development environment run the following command:
+To test the project template in a development environment run the following command:
 
 ```console
 make migrate createsuperuser runserver
