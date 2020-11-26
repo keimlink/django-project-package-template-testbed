@@ -1,2 +1,2 @@
 Django==2.1.7
-Faker==1.0.4
+Faker==4.17.1
