@@ -1,2 +1,2 @@
-Django==2.1.7
+Django==3.2.8
 Faker==1.0.4
